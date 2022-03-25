@@ -1,8 +1,15 @@
 5 ansible playbook
 5 shell script
+3 python
 
 Couse video
 Ansible (Kode kloud)
-Kubernetes ()
+Kubernetes (udemy)
+
 
 Interview Questions 
+Praveen Questions
+
+
+Book Reading
+10 pages
