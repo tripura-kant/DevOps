@@ -1,0 +1,8 @@
+5 ansible playbook
+5 shell script
+
+Couse video
+Ansible (Kode kloud)
+Kubernetes ()
+
+Interview Questions 
