@@ -1,0 +1,15 @@
+# Playbook.yml
+
+---
+- name : Ping Servers
+  hosts :
+  tasks :
+  -      : 
+#Ansible -m ping all
+
+#ansible-playbook playbook.yml
+
+# To directly run a command with running any module
+# ansible -a 'cat /etc/hosts' all
+
+
