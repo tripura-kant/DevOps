@@ -1,3 +1,12 @@
+#Target
+
+#Jenkinsfile
+#Dockerfile
+#Kubernetes
+#Ansible Playbook
+#Terraform
+#Shell scripting
+
 #Learn shell scripting basics
 
 
