@@ -1,0 +1,1 @@
+Daily 5 K8s manifest file
