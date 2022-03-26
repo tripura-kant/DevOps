@@ -12,10 +12,22 @@ K8s Scheduler
 #schedules pods
 
 
+#Kube Api server
+
+
+Docker Engine
+
+Kubelet is the main .its an agent on all nodes listen to kube api server for any instructions 
 
 Worker Nodes
 Host Applications as Containers
 
+#Kube Proxy
+For network service
+Ensures rules are in place
 
+
+##############################################################################################
+##############################################################################################
 
 # Labels and selector 
