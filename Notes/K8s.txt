@@ -1,0 +1,21 @@
+#Cluster Architecture
+
+Master Nodes
+Manages ,Plans schedule monitor Nodes
+
+Control plane contoller
+
+Etcd
+#store data
+
+K8s Scheduler
+#schedules pods
+
+
+
+Worker Nodes
+Host Applications as Containers
+
+
+
+# Labels and selector 
