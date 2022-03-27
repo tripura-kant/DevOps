@@ -14,3 +14,42 @@
 # ansible -a 'cat /etc/hosts' all
 
 
+
+#
+--- 
+- hosts: all
+  tasks:
+  - name: Create a Scheduled tasks
+    cron:
+      name: Run daily health report
+      job: sh /opt/scripts/health.sh
+
+      month: 2
+      day: 19
+      hour: 8
+      minute: 10
+
+
+#Simple playbook to Install httpd package
+---
+- hosts: web1
+  tasks:
+  - name: Install httpd pacakage
+    yum: name=httpd state=installed
+
+
+---
+- hosts: web1
+  tasks:
+  - name: Install httpd package
+    yum: name=httpd state=installed
+
+
+#Download packkage using wget  install that rpm on web1 node using yum module.
+
+---
+- hosts: web1
+  tasks:
+  - yum:
+      name: http://mirror.centos.org/centos/7/os/x86_64/Packages/wget-1.14-18.el7_6.1.x86_64.rpm
+      state: present          
