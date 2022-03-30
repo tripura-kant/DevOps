@@ -1,1 +1,173 @@
-Daily 5 K8s manifest file
+#Cluster Architecture
+
+Master Nodes
+Manages ,Plans schedule monitor Nodes
+
+Control plane contoller
+
+Etcd
+#store data
+
+K8s Scheduler
+#schedules pods
+
+
+#Kube Api server
+
+
+Docker Engine
+
+Kubelet is the main .its an agent on all nodes listen to kube api server for any instructions 
+
+Worker Nodes
+Host Applications as Containers
+
+#Kube Proxy
+For network service
+Ensures rules are in place
+
+
+##############################################################################################
+##############################################################################################
+
+# Labels and selector 
+
+For identification purpose
+
+pod-definetion.yaml
+
+kubectl get pods --selector app=App1
+
+Implemented Shared Library to share and reuse code across 35+ CI pipeline configurations.
+Hand on experience to manage the entire build and release activity across multiple environments and infrastructure.
+
+
+Enveloped in mission-critical production deployment with applying best practices of SRE principles.
+Troubleshoot the application logs to get the issue on the application side.
+
+
+Taint and toleration
+
+Kubectl taint nodes node-name key=value: taint-effect
+No schedule prefernoschedule Noexecute
+Kubectl taint nodes node1 app=blue:Noschedule
+
+kubectl describe node kubemaster |grep Taint
+
+kubectl describe node node01 |grep Taint
+
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+3node selector to Define a particular node to serve the   
+
+kubectl label nodes node01 color=blue
+
+
+kubectl create deployment blue --image=nginx --replicas=3
+
+## Node affinity : Node affinity is a set of rules used by the scheduler to determine where a pod can be placed.
+
+##The rules are defined using custom labels on nodes and label selectors specified in pods.
+## Node affinity allows a pod to specify an affinity (or anti-affinity) towards a group of nodes it can be placed on.
+
+Scale
+
+kubectl create -f replicaset-defenition.yml
+
+kubectl scale --relicas=6 -f replicaset-definition.yml
+
+kubectl scale --replicas=6 replicaset myapp-replicaset
+
+kubectl get replicaset
+
+kubectl delete relicaset myapp-replicaset
+
+kubectl replace -f replicaset-defenition.yml
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: Replicaset-1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: Replicaset-1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+
+
+kubectl edit replicaset new-replica-set
+
+kubectl scale rs new-replica-set --replicas=2
+
+Deployemnts kubernetes deployment
+
+upgrade the underlying instance
+rolling update
+undo chnages 
+resume chnages as required.
+
+Create an NGINX Pod
+
+kubectl run nginx --image=nginx
+
+Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
+
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+Create a deployment
+
+kubectl create deployment --image=nginx nginx
+
+Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
+
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+
+Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) with 4 Replicas (–replicas=4)
+
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
+
+Save it to a file, make necessary changes to the file (for example, adding more replicas) and then create the deployment.
+
+kubectl create -f nginx-deployment.yaml
+
+OR
+
+In k8s version 1.19+, we can specify the –replicas option to create a deployment with 4 replicas.
+
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+
+
+Namespaces
+
+inside a house
+to isolate from different 
+multiple container list of resource
+

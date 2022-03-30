@@ -162,3 +162,78 @@
         permanent: yes
         state: enabled
         immediate: true  
+
+
+#Create a touch file
+---
+- name: Create file perm.txt
+  hosts: web1
+  tasks:
+   - name: Create file perm.txt
+     file: path=/opt/data/perm.txt mode=064 state=touch
+
+
+
+---
+- name: Create file perm.txt
+  hosts: web1
+  tasks:
+   - name: Create file perm.txt
+     file: path=/opt/data/perm.txt mode=0640 state=touch
+
+
+Install firewall
+install httpd
+configure httpd
+start httpd
+install mariadb
+configure mariadb
+start mariadb
+configure firewall
+configure database
+Load data
+
+install php
+configure code
+
+
+
+#####
+#####
+#Install firewall
+
+sudo yum install firewalld
+sudo service firewalld Start
+sudo systemctl enable firewalld
+
+#Install Mariadb
+sudo yum install mariadb-server
+
+# Configure Mariadb
+sudo vi /etc/my.cnf #Configure the file with the right port
+
+sudo service mariadb Start
+
+sudo systemctl enable mariadb
+
+sudo firewall-cmd --permanent --zone=public --add-port=3309/6/tcp
+sudo firewall-cmd --reload
+
+
+
+#Start Mariadb
+mysql
+Mariadb > Create 
+
+#Configure Firewall
+
+
+######
+Install httpd
+Install php
+Configure Firewall
+Configure httpd
+start httpd
+Download code
+Test
+###########

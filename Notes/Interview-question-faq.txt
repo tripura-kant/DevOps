@@ -1,29 +1,210 @@
-Kubernetes:
-1) What is the architecture of kubernetes ?
+<< com
+#1. CMD vs ENTRYPOINT in Dockerfile
 
-Components of Kubernetes are :
-etcd
-kube-API server
-Controller manager
-Kube scheduler
-Kubelet
-Kube Proxy
+The main purpose of a CMD is to provide defaults for an executing container.
 
-The purpose of Kubenetes is to 
+An ENTRYPOINT allows you to configure a container that will run as an executable.
 
-2) What does control manager, etcd, scheduler, API server do
-3) What is a manifest file and what are the components of it
-4) What is node affinity, pod afiinity , taint toleration
-5) What is node port, cluster ip
-6) What is persitant volumes and why we use it
-7) Describe what is pod and what is pod lifecycle
-8) What are the components on master and worked node
-9) What is ingress controller
-10) What are types of services in kuberntes
-11) How one pod talks with other pod
-12) How the pod healcheck is done(describe rediness, livesness)
-13) How the monitoring is done(integration on Prometheus and grafana)
-14) What is deamonset, replicaset, horizontal pod autoscaler
-15) Write a manifest file of your own choice
-16) What is namespace and why we use it
-17) What are helm charts and uses
+CMD command provides executable defaults for an executing container. In case the executable has to be omitted then the usage of ENTRYPOINT instruction along with the JSON array format has to be incorporated.
+ENTRYPOINT specifies that the instruction within it will always be run when the container starts. 
+This command provides an option to configure the parameters and the executables. If the DockerFile does not have this command, then it would still get inherited from the base image mentioned in the FROM instruction.
+- The most commonly used ENTRYPOINT is /bin/sh or /bin/bash for most of the base images.
+As part of good practices, every DockerFile should have at least one of these two commands
+
+
+#2. ENV creates a layer or not
+
+Each ENV line creates a new intermediate layer, just like RUN commands. 
+This means that even if you unset the environment variable in a future layer, 
+it still persists in this layer and its value can be dumped. 
+You can test this by creating a Dockerfile like the following, and then building it.
+
+## 3. Size of Docker image where it stores and container filesystem
+
+Docker Root Dir: /var/lib/docker
+
+Ubuntu: /var/lib/docker/
+Fedora: /var/lib/docker/
+Debian: /var/lib/docker/
+Windows: C:\ProgramData\DockerDesktop
+MacOS: ~/Library/Containers/com.docker.docker/Data/vms/0/
+
+ docker service create -d \
+  --replicas=4 \
+  --name devtest-service \
+  --mount source=myvol2,target=/app \
+  nginx:latest
+
+
+
+## 4. Limitations of Terraform
+
+
+
+5. Types of LoadBalancers in AWS and Configuring them
+
+
+Elastic Load Balancing supports the following types of load balancers: 
+Application Load Balancers, Network Load Balancers, and Classic Load Balancers
+
+Application Load Balancers are used to route HTTP/HTTPS (or Layer 7) traffic.
+
+Network Load Balancers and Classic Load Balancers are used to route TCP (or Layer 4) traffic.
+
+Classic Load Balancer
+A Classic Load Balancer makes routing decisions at either the transport layer (TCP/SSL) or 
+the application layer (HTTP/HTTPS). Classic Load Balancers currently require a fixed relationship 
+between the load balancer port and the container instance port. 
+For example, it is possible to map the load balancer port 80 to the container instance port 
+030 and the load balancer port 4040 to the container instance port 4040. However, 
+it is not possible to map the load balancer port 80 to port 3030 on one container instance and 
+port 4040 on another container instance. 
+This static mapping requires that your cluster has at least as many container
+ instances as the desired count of a single service that uses a Classic Load Balancer.
+  For more information, see the User Guide for Classic Load Balancers.
+Network Load Balancer
+A Network Load Balancer makes routing decisions at the transport layer (TCP/SSL).
+ It can handle millions of requests per second. After the load balancer receives a connection, it selects a target from the target group for the default rule using a flow hash routing algorithm. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration. It forwards the request without modifying the headers. Network Load Balancers support dynamic host port mapping. For example, if your task's container definition specifies port 80 for an NGINX container port, and port 0 for the host port, then the host port is dynamically chosen from the ephemeral port range of the container instance (such as 32768 to 61000 on the latest Amazon ECS-optimized AMI). When the task is launched, the NGINX container is registered with the Network Load Balancer as an instance ID and port combination, and traffic is distributed to the instance ID and port corresponding to that container. This dynamic mapping allows you to have multiple tasks from a single service on the same container instance. For more information, see the User Guide for Network Load Balancers.
+Application Load Balancer
+An Application Load Balancer makes routing decisions at the application layer (HTTP/HTTPS), supports path-based routing, and can route requests to one or more ports on each container instance in your cluster. Application Load Balancers support dynamic host port mapping. For example, if your task's container definition specifies port 80 for an NGINX container port, and port 0 for the host port, then the host port is dynamically chosen from the ephemeral port range of the container instance (such as 32768 to 61000 on the latest Amazon ECS-optimized AMI). When the task is launched, the NGINX container is registered with the Application Load Balancer as an instance ID and port combination, and traffic is distributed to the instance ID and port corresponding to that container. This dynamic mapping allows you to have multiple tasks from a single service on the same container instance. For more information, see the User Guide for Application Load Balancers.
+
+
+
+6. How control plane components will be running
+7. kubeadm cluster creation steps
+8. HA K8s cluster and leader election
+9.KUBECONFIG details
+10. Practical diff between Public and Private Subnets
+11. What happens when you delete api server pods
+12. How to run java app as a service on system bootup
+3. How to connect to an EC2 instance if we lose a pem key and how can we recover it
+14. Ingress controller with LoadBalancer
+15. CoreDNS in Kubernetes - usage and why
+16. LoadBalancer Configuration
+17. Diff between find and locate command
+8. How to recover the tf state file if we lost it
+19. AWS CNI and VPC for EKS20. Jenkins Multi-Node
+21. Diff between ECS and EKS
+22. Diff between Instance Storage and Add Storage in AWS
+23. How control plane components are running in k8s and what happens if we delete those components and try to access api-server using kubectl
+24. Details of Kubeconfig
+25. Life Cycle dependencies in terraform
+26. How ip addresses are allocated when AWS CNI and VPCs are used with K8s.
+27. HTTP error codes and description.
+28. terraform import command usage
+29. How the backend is configured for terraform state files in HAL.
+30. What happens when the terraform state file is lost and how can we recover it
+31. What is a service monitor in prometheus.
+32. What all modules used in python scripting
+33. Firewall rules, routing, IP CIDR allocation, DNS, networking and security are all important in the cloud.
+34. annotations in kubernetes
+35. What are the diff ways to connect to the EKS cluster?
+36. DNS record types and uses.
+37. EKS upgrade steps in AWS and issues (HAL docs).
+38. Terraform lifecycle.
+39. Container lifecycle.
+40. Pod Lifecycle.
+41. Terraform commands.
+42. Practical diff between Docker Swarm and K8s.
+43. Diff between Stateful and Stateless firewalls.
+44. how to implement CI/CD for diff env
+45. Explain diff deployment strategies in K8s.
+46. PV parameters - ReadWriteMany, ReadWriteOnce
+47. Diff between On-Prem K8s vs EKS
+48. how to know which traffic requests are legitimate or not.
+47. How to avoid SQL injection.
+48. Pending Pods and Node not ready state in K8s and Reasons
+49. Priority Class, Taints and Tolerations, Affinity, QoS, Pod Disruption Budget in K8s
+50. Can we configure a load balancer with multiple certificates?
+51. Issues that you have faced in K8s.
+52. What is load average in Linux. (top , uptime)
+53. What is swap space in linux.
+54. CICD basics to advanced (CICD Flow, types of pipelines, master slave config)
+55. How to debug the REST API hit error (for example 404 or 503).
+56. can we resize the EBS volume once we attach to the EC2 instance.
+57. How to manage the VM if it is underperforming in K8s for maintenance.
+58. What is the best possible way to avoid pod issues? like CICD, Automated way
+59. How git stash and pop works.
+60. How to bring on-prem instance to AWS using systems manager.
+61. Explain about GitLab branching strategy
+62. What is _name_ == _main_ in python
+63. SAST and DAST tools used in pipeline?
+64. How to give user permissions to create and read permissions for file but not delete permission
+65. How to customize helm charts to deploy to multiple environments
+66. Access Advisor in AWS?
+67. UDP in docker
+68. 3000 IOPS for instance
+69. How to change the volume size of etcd in K8s without any downtime.
+70. How a service/app in K8s interacts with S3 bucket in AWS
+71. Do you same image across your deployment
+72. What is the difference between * and ** in python?73. Difference between replicaset and deployment in K8s?
+74. Difference between user and IAM user in AWS.
+75. How to do differentiate between public and private subnets in AWS.
+76. What are the services you have worked on in AWS.
+77. What are the security features you have used in AWS.
+78. What is the VPC endpoint?
+79. How to do backup and restore in AWS for RDS with RTO.
+80. What are read and write replicas in RDS and how do you configure a failover strategy for RDS.
+81. Can we add launch config to the already existing ASG in AWS
+82. What are the disadvantages of Docker containers?
+83. What is Traffic Manager in Azure
+84. What are AvailabilitySets in Azure
+85. What is a stale branch in Git
+86. How to create tags in Git
+87. can we tag from multiple commit ids in Git.
+88. What is the signed URL in AWS for S3 bucket.
+89. How to monitor CPU and memory usage in Linux
+90. What are symbolic links in Linux
+91. What are the shell variables u have used in Shell Scripting
+92. What is the private module registry in terraform and what is terraform cloud
+93. Diff between replicaset and replication controller in K8s
+94. What is a headless service in K8s
+95. What is terraform refresh and terraform init commands
+96. How to make containers to talk to each other by their name in a pod
+97. Design Instagram architecture in AWS98. What is git bisect
+99. What are the different types of EC2 instances and usage
+100. How VPCs are monitored
+101. What is cloudwatch and usage
+102. How many subnets we can create within a VPC
+103. What is a heapster and how it is running in K8s
+104. What are webhooks in K8s
+105. How one pod running in one K8s cluster can communicate with another pod running in another K8s cluster.
+106. What are process states in Linux?
+107. What are threads in Linux?
+109. How to check process CPU and memory utilization in Linux
+110. What is the significance of load average in Linux.
+111. How to troubleshoot slowness of an application in Linux.
+112. How to identify the last 10 ip addresses in a live log file in Linux.
+113. How to claim 10GB of space if the log file is generated and if we don't want to delete that.
+114. What is diff between declarative and Scripted pipeline in Jenkins
+115. What are the diff types of EC2 instances and Use cases of each
+116. What are the diff types of S3
+117. How to manage certificates in AWS
+118. What are the diff types of Load Balancers in AWS and difference between them
+119. Explain the OSI (full form) layer
+120. What are the different types of Load Balancing strategies
+121. How to secure the Load balancer in AWS
+122. How to check the route table in Linux.123. How to check the memory usage in Linux.
+124. How to check the open connections in Linux.
+125. How to check the open files in Linux.126. What is the difference between TCP and UDP.
+127. What is the significance of TIME_WAIT and CLOSED_WAIT values when we netstat commands in Linux.
+128. What is a swap space in Linux?
+129. What is the port range in Linux that we can allocate and Why those numbers.130. What is an ephemeral port in Linux?
+131. What is a dirty memory in Linux?132. How to resize the etcd volume size of PV in K8s.
+133. Does the container restart itself?
+134. What is a zombie process in Linux?
+135. What are the two files that get modified when you create a user in Linux?
+136. Where does the password get stored in hash form in Linux?
+137. How do you upgrade packages in Linux?
+138. What is the file location where the repository information is stored?
+139. How to check the vulnerability packages in Linux on system level.
+140. How to bring up EC2 instance or restart automatically (self-heal) in AWS
+141. What is default file permission in Linux when a file gets created and how to modify it and What is the significance of umask 022
+142. Why the file is not getting created still there is space in the mount point in Linux filesystem.
+143. Where the log file gets generated in Linux.
+144. What are the system calls you can make in Linux?
+145. What are the instance families using the EKS cluster?
+146. How many production clusters are there?
+147. How many worker nodes are there in production env?
+
+com
