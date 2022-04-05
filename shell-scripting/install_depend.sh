@@ -71,3 +71,9 @@ fi
 fi
 
 com
+
+#for word in $(cat peptides.txt
+# cat abc.txt | while
+read line; do
+echo $line
+done
