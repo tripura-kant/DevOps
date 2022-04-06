@@ -10,8 +10,8 @@ def main(name):
   print ('hello') + str(name)
 
 # Define a main() function that prints a little greeting.
-def main():
-  Hello(sys.argv[1])
+#def main():
+ # Hello(sys.argv[1])
 
 
   # Get the name from the command line, using 'World' as a fallback.
