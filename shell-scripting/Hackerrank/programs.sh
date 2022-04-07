@@ -23,3 +23,18 @@ echo $(( X * Y ))
 echo $(( X / Y ))
 
 
+
+##Hacker rank
+
+read num
+
+if [ $num == "Y" ] ; then
+echo "YES"
+else
+echo "NO"
+fi
+
+
+
+
+
