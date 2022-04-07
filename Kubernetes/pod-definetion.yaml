@@ -24,3 +24,8 @@ spec:
   ports:
   - port: <Port>
     targetPort: <Target Port>
+
+
+####################################3
+Secrets
+
