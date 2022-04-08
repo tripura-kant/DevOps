@@ -28,11 +28,33 @@ echo $(( X / Y ))
 
 read num
 
-if [ $num == "Y" ] ; then
+if [ $num == "Y" ] || [ $num == "y" ] ; then
 echo "YES"
 else
 echo "NO"
 fi
+
+
+read X
+read Y
+read Z
+
+if [ $X = $Y ] && [ $Y = $Z ] 
+then
+    echo "EQUILATERAL"
+elif [ $X = $Y ] || [ $Y = $Z ]
+then 
+    echo "ISOSCELES"    
+else
+    echo "SCALENE"
+fi
+
+#Print number
+read num
+echo $num | bc -l | xargs printf "%.3f"
+
+
+
 
 
 
