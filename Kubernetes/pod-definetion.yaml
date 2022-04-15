@@ -29,14 +29,14 @@
 ####################################3
 #Secrets
 
-apiVersion: v1
-kind: Secret
-metadata:
-  name: demo
-type: Opaque
-data:
-  username: eiujadhcjka
-  password: asdasdasdas
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: demo
+# type: Opaque
+# data:
+#   username: eiujadhcjka
+#   password: asdasdasdas
 
 
-kubectl 
+# kubectl 
