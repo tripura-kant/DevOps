@@ -1,0 +1,74 @@
+# # Create a deployment with below options
+# # 1. port = 9090
+# # 2. image = any
+# # 3. persistant storage
+# # 4. namespace =  test
+# # 5. tag = env=prod
+# # 6. expose via cluster ip
+
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nginx-deployment
+#   labels:
+#     env: prod
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: nginx
+#   template:
+#     metadata:
+#       labels:
+#         app: nginx
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: nginx:1.14.2
+#         ports:
+#         - containerPort: 9090
+#         hostPath:
+#         -   path: "/mnt/data"
+
+
+
+# #SERVICE
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: my-service
+# spec:
+#   selector:
+#     env: prod
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 9090
+#   clusterIP: 10.0.171.239
+#   type: clusterIP
+
+
+
+
+
+#     #PV
+
+#     apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: task-pv-volume
+#   labels:
+#     type: local
+# spec:
+#   storageClassName: manual
+#   capacity:
+#     storage: 10Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: "/mnt/data"
+
+
+    

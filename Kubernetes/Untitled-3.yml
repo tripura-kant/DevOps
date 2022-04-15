@@ -1,0 +1,35 @@
+
+# install app and it must start the app
+# variable
+# handlers and notifiers
+# output of each task
+
+
+
+---
+- hosts: webservers
+  remote_user: root
+  vars:
+       app_path: "/opt/"
+  tasks:
+  - name: Ensure postgresql is at the latest version
+    ansible.builtin.yum:
+      name: postgresql
+      state: latest
+  - name: Ensure that postgresql is started
+    ansible.builtin.service:
+      name: postgresql
+      state: started
+
+
+    handlers:
+    - name: Restart apache
+      ansible.builtin.service:
+        name: postgresql
+        state: restarted
+
+    notifier:
+    - name: Restart apache
+      ansible.builtin.service:
+        name: postgresql
+        state: restarted    

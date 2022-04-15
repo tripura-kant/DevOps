@@ -1,362 +1,362 @@
-# --- 
-# - name: Create a file index.html
-#   hosts: web1
-#   tasks: 
-#   - lineinfile:
-#       path: /var/www/html/index.html
-#       line: 'This line was added using Ansible lineinfile module!'
-#       create: yes
+# # --- 
+# # - name: Create a file index.html
+# #   hosts: web1
+# #   tasks: 
+# #   - lineinfile:
+# #       path: /var/www/html/index.html
+# #       line: 'This line was added using Ansible lineinfile module!'
+# #       create: yes
+
+
+# # ---
+# # - hosts: web1
+# #   tasks:
+# #     - name: Find files
+# #       find:
+# #         paths: /opt/data
+# #         age: 2m
+# #         size: 1m
+# #         recurse: yes
+# #       register: file
+
+# #     - name: Copy files
+# #       command: "cp {{ item.path }} /opt"
+# #       with_items: "{{ file.files }}"
+
+# # ---
+# # - hosts: web1
+# #   tasks:
+# #    - name: Changes in index.html
+# #      blockinfile: 
+# #       owner: apache
+# #       group: apache
+# #       insertbefore: BOF
+# #       path: /var/www/html/index.html
+# #       block:  |
+# #       Welcome to kadekloud !
+# #       This is ansible lab.
+
+
+
+# # ---
+# # - hosts: web1
+# #   tasks:
+# #    - name: Changes in index.html
+# #      blockinfile: 
+# #       owner: apache
+# #       group: apache
+# #       insertbefore: BOF
+# #       path: /var/www/html/index.html
+# #       block:  |
+# #       Welcome to kadekloud !
+# #       This is ansible lab.
+
+
+# # ---
+# # - name: replace port 80 to 8080
+# #   hosts: web1
+# #   tasks:
+# #   - replace:
+# #       path: /etc/httpd/conf/httpd.conf
+# #       regexp: 'Listen 80'
+# #       replace: 'Listen 8080'
+# #   - service: name=httpd state=restarted
+
+# # ---
+# # - name: Installing packages and software
+# #   hosts: all
+# #   become: yes
+# #   tasks:
+# #   - name: Install common dependencies
+# #     yum: 
+# #      name: 
+# #       - libselinux-python
+# #       - libsemanage-python
+# #       - firewalld 
+# #      state: installed
+#     - name: Install and Configure lamp stack application
+#       hosts: lamp-db
+#       become: yes
+#       tasks: 
 
 
 # ---
-# - hosts: web1
-#   tasks:
-#     - name: Find files
-#       find:
-#         paths: /opt/data
-#         age: 2m
-#         size: 1m
-#         recurse: yes
-#       register: file
 
-#     - name: Copy files
-#       command: "cp {{ item.path }} /opt"
-#       with_items: "{{ file.files }}"
-
-# ---
-# - hosts: web1
-#   tasks:
-#    - name: Changes in index.html
-#      blockinfile: 
-#       owner: apache
-#       group: apache
-#       insertbefore: BOF
-#       path: /var/www/html/index.html
-#       block:  |
-#       Welcome to kadekloud !
-#       This is ansible lab.
-
-
-
-# ---
-# - hosts: web1
-#   tasks:
-#    - name: Changes in index.html
-#      blockinfile: 
-#       owner: apache
-#       group: apache
-#       insertbefore: BOF
-#       path: /var/www/html/index.html
-#       block:  |
-#       Welcome to kadekloud !
-#       This is ansible lab.
-
-
-# ---
-# - name: replace port 80 to 8080
-#   hosts: web1
-#   tasks:
-#   - replace:
-#       path: /etc/httpd/conf/httpd.conf
-#       regexp: 'Listen 80'
-#       replace: 'Listen 8080'
-#   - service: name=httpd state=restarted
-
-# ---
-# - name: Installing packages and software
+# - name: Deploy lamp stack application
 #   hosts: all
 #   become: yes
 #   tasks:
-#   - name: Install common dependencies
-#     yum: 
-#      name: 
-#       - libselinux-python
-#       - libsemanage-python
-#       - firewalld 
-#      state: installed
-    - name: Install and Configure lamp stack application
-      hosts: lamp-db
-      become: yes
-      tasks: 
+#     - name: Install common dependencies
+#       yum:
+#         name:
+#           - libselinux-python
+#           - libsemanage-python
+#           - firewalld
+#         state: installed
 
+#     # Install and Configure Database
+# - name: Deploy lamp stack application
+#   hosts: lamp-db
+#   become: yes
+#   tasks:
+#     - name: Install MariaDB package
+#       yum:
+#         name:
+#           - mariadb-server
+#           - MySQL-python
+#         state: installed
 
----
+#     - name: Create Mysql configuration file
+#       copy: src=files/my.cnf dest=/etc/my.cnf
 
-- name: Deploy lamp stack application
-  hosts: all
-  become: yes
-  tasks:
-    - name: Install common dependencies
-      yum:
-        name:
-          - libselinux-python
-          - libsemanage-python
-          - firewalld
-        state: installed
+#     - name: Start MariaDB Service
+#       service: name=mariadb state=started enabled=yes
 
-    # Install and Configure Database
-- name: Deploy lamp stack application
-  hosts: lamp-db
-  become: yes
-  tasks:
-    - name: Install MariaDB package
-      yum:
-        name:
-          - mariadb-server
-          - MySQL-python
-        state: installed
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
 
-    - name: Create Mysql configuration file
-      copy: src=files/my.cnf dest=/etc/my.cnf
-
-    - name: Start MariaDB Service
-      service: name=mariadb state=started enabled=yes
-
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
-
-    - name: insert firewalld rule
-      firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+#     - name: insert firewalld rule
+#       firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
 
 
 
 
-############################################
-      ---
+# ############################################
+#       ---
 
-- name: Deploy lamp stack application
-  hosts: all
-  become: yes
-  tasks:
-    - name: Install common dependencies
-      yum:
-        name:
-          - libselinux-python
-          - libsemanage-python
-          - firewalld
-        state: installed
+# - name: Deploy lamp stack application
+#   hosts: all
+#   become: yes
+#   tasks:
+#     - name: Install common dependencies
+#       yum:
+#         name:
+#           - libselinux-python
+#           - libsemanage-python
+#           - firewalld
+#         state: installed
 
-    # Install and Configure Database
-- name: Deploy lamp stack application
-  hosts: lamp-db
-  become: yes
-  tasks:
-    - name: Install MariaDB package
-      yum:
-        name:
-          - mariadb-server
-          - MySQL-python
-        state: installed
+#     # Install and Configure Database
+# - name: Deploy lamp stack application
+#   hosts: lamp-db
+#   become: yes
+#   tasks:
+#     - name: Install MariaDB package
+#       yum:
+#         name:
+#           - mariadb-server
+#           - MySQL-python
+#         state: installed
 
-    - name: Create Mysql configuration file
-      copy: src=files/my.cnf dest=/etc/my.cnf
+#     - name: Create Mysql configuration file
+#       copy: src=files/my.cnf dest=/etc/my.cnf
 
-    - name: Start MariaDB Service
-      service: name=mariadb state=started enabled=yes
+#     - name: Start MariaDB Service
+#       service: name=mariadb state=started enabled=yes
 
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
 
-    - name: insert firewalld rule
-      firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+#     - name: insert firewalld rule
+#       firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
 
-    - name: Create Application Database
-      mysql_db: name={{ dbname }} state=present
+#     - name: Create Application Database
+#       mysql_db: name={{ dbname }} state=present
 
-    - name: Create Application DB User
-      mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
+#     - name: Create Application DB User
+#       mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
 
-    - name: Move db-load-script to db host
-      copy:
-        src: files/db-load-script.sql
-        dest: /tmp/db-load-script.sql
+#     - name: Move db-load-script to db host
+#       copy:
+#         src: files/db-load-script.sql
+#         dest: /tmp/db-load-script.sql
 
-    - name: Load Inventory Data
-      shell: mysql -f < /tmp/db-load-script.sql
-
-
-
-      ---
-
-- name: Deploy lamp stack application
-  hosts: all
-  become: yes
-  tasks:
-    - name: Install common dependencies
-      yum:
-        name:
-          - libselinux-python
-          - libsemanage-python
-          - firewalld
-        state: installed
-
-    # Install and Configure Database
-- name: Deploy lamp stack application
-  hosts: lamp-db
-  become: yes
-  tasks:
-    - name: Install MariaDB package
-      yum:
-        name:
-          - mariadb-server
-          - MySQL-python
-        state: installed
-
-    - name: Create Mysql configuration file
-      copy: src=files/my.cnf dest=/etc/my.cnf
-
-    - name: Start MariaDB Service
-      service: name=mariadb state=started enabled=yes
-
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
-
-    - name: insert firewalld rule
-      firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
-
-    - name: Create Application Database
-      mysql_db: name={{ dbname }} state=present
-
-    - name: Create Application DB User
-      mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
-
-    - name: Move db-load-script to db host
-      copy:
-        src: files/db-load-script.sql
-        dest: /tmp/db-load-script.sql
-
-    - name: Load Inventory Data
-      shell: mysql -f < /tmp/db-load-script.sql
-
-- name: Deploy lamp stack application
-  hosts: lampweb
-  become: yes
-  tasks:
-    - name: Install httpd and php
-      yum:
-        name:
-          - httpd
-          - php
-          - php-mysql
-        state: present
-
-    - name: Install web role specific dependencies
-      yum: name=git state=installed
-
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
-
-    - name: insert firewalld rule for httpd
-      firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
-
-    - name: Set index.php as the default page
-      tags: "Set index.php as the default page"
-      replace:
-        path: /etc/httpd/conf/httpd.conf
-        regexp: 'DirectoryIndex index.html'
-        replace: 'DirectoryIndex index.php'
-
-    - name: http service state
-      service: name=httpd state=started enabled=yes
-
-Terminal 1
-
-settings_input_hdmi Web App
-menu
-open_in_new
-fullscreenwb_sunny
-settings_backup_restore
-stop
+#     - name: Load Inventory Data
+#       shell: mysql -f < /tmp/db-load-script.sql
 
 
----
 
-- name: Deploy lamp stack application
-  hosts: all
-  become: yes
-  tasks:
-    - name: Install common dependencies
-      yum:
-        name:
-          - libselinux-python
-          - libsemanage-python
-          - firewalld
-        state: installed
+#       ---
 
-    # Install and Configure Database
-- name: Deploy lamp stack application
-  hosts: lamp-db
-  become: yes
-  tasks:
-    - name: Install MariaDB package
-      yum:
-        name:
-          - mariadb-server
-          - MySQL-python
-        state: installed
+# - name: Deploy lamp stack application
+#   hosts: all
+#   become: yes
+#   tasks:
+#     - name: Install common dependencies
+#       yum:
+#         name:
+#           - libselinux-python
+#           - libsemanage-python
+#           - firewalld
+#         state: installed
 
-    - name: Create Mysql configuration file
-      copy: src=files/my.cnf dest=/etc/my.cnf
+#     # Install and Configure Database
+# - name: Deploy lamp stack application
+#   hosts: lamp-db
+#   become: yes
+#   tasks:
+#     - name: Install MariaDB package
+#       yum:
+#         name:
+#           - mariadb-server
+#           - MySQL-python
+#         state: installed
 
-    - name: Start MariaDB Service
-      service: name=mariadb state=started enabled=yes
+#     - name: Create Mysql configuration file
+#       copy: src=files/my.cnf dest=/etc/my.cnf
 
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
+#     - name: Start MariaDB Service
+#       service: name=mariadb state=started enabled=yes
 
-    - name: insert firewalld rule
-      firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
 
-    - name: Create Application Database
-      mysql_db: name={{ dbname }} state=present
+#     - name: insert firewalld rule
+#       firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
 
-    - name: Create Application DB User
-      mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
+#     - name: Create Application Database
+#       mysql_db: name={{ dbname }} state=present
 
-    - name: Move db-load-script to db host
-      copy:
-        src: files/db-load-script.sql
-        dest: /tmp/db-load-script.sql
+#     - name: Create Application DB User
+#       mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
 
-    - name: Load Inventory Data
-      shell: mysql -f < /tmp/db-load-script.sql
+#     - name: Move db-load-script to db host
+#       copy:
+#         src: files/db-load-script.sql
+#         dest: /tmp/db-load-script.sql
 
-- name: Deploy lamp stack application
-  hosts: lampweb
-  become: yes
-  tasks:
-    - name: Install httpd and php
-      yum:
-        name:
-          - httpd
-          - php
-          - php-mysql
-        state: present
+#     - name: Load Inventory Data
+#       shell: mysql -f < /tmp/db-load-script.sql
 
-    - name: Install web role specific dependencies
-      yum: name=git state=installed
+# - name: Deploy lamp stack application
+#   hosts: lampweb
+#   become: yes
+#   tasks:
+#     - name: Install httpd and php
+#       yum:
+#         name:
+#           - httpd
+#           - php
+#           - php-mysql
+#         state: present
 
-    - name: Start firewalld
-      service: name=firewalld state=started enabled=yes
+#     - name: Install web role specific dependencies
+#       yum: name=git state=installed
 
-    - name: insert firewalld rule for httpd
-      firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
 
-    - name: Set index.php as the default page
-      tags: "Set index.php as the default page"
-      replace:
-        path: /etc/httpd/conf/httpd.conf
-        regexp: 'DirectoryIndex index.html'
-        replace: 'DirectoryIndex index.php'
+#     - name: insert firewalld rule for httpd
+#       firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
 
-    - name: http service state
-      service: name=httpd state=started enabled=yes
+#     - name: Set index.php as the default page
+#       tags: "Set index.php as the default page"
+#       replace:
+#         path: /etc/httpd/conf/httpd.conf
+#         regexp: 'DirectoryIndex index.html'
+#         replace: 'DirectoryIndex index.php'
 
-Terminal 1
+#     - name: http service state
+#       service: name=httpd state=started enabled=yes
 
-settings_input_hdmi Web App
-menu
-open_in_new
-fullscreenwb_sunny
-settings_backup_restore
-stop
+# # Terminal 1
+
+# # settings_input_hdmi Web App
+# # menu
+# # open_in_new
+# # fullscreenwb_sunny
+# # settings_backup_restore
+# # stop
+
+
+# ---
+
+# - name: Deploy lamp stack application
+#   hosts: all
+#   become: yes
+#   tasks:
+#     - name: Install common dependencies
+#       yum:
+#         name:
+#           - libselinux-python
+#           - libsemanage-python
+#           - firewalld
+#         state: installed
+
+#     # Install and Configure Database
+# - name: Deploy lamp stack application
+#   hosts: lamp-db
+#   become: yes
+#   tasks:
+#     - name: Install MariaDB package
+#       yum:
+#         name:
+#           - mariadb-server
+#           - MySQL-python
+#         state: installed
+
+#     - name: Create Mysql configuration file
+#       copy: src=files/my.cnf dest=/etc/my.cnf
+
+#     - name: Start MariaDB Service
+#       service: name=mariadb state=started enabled=yes
+
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
+
+#     - name: insert firewalld rule
+#       firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+
+#     - name: Create Application Database
+#       mysql_db: name={{ dbname }} state=present
+
+#     - name: Create Application DB User
+#       mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
+
+#     - name: Move db-load-script to db host
+#       copy:
+#         src: files/db-load-script.sql
+#         dest: /tmp/db-load-script.sql
+
+#     - name: Load Inventory Data
+#       shell: mysql -f < /tmp/db-load-script.sql
+
+# - name: Deploy lamp stack application
+#   hosts: lampweb
+#   become: yes
+#   tasks:
+#     - name: Install httpd and php
+#       yum:
+#         name:
+#           - httpd
+#           - php
+#           - php-mysql
+#         state: present
+
+#     - name: Install web role specific dependencies
+#       yum: name=git state=installed
+
+#     - name: Start firewalld
+#       service: name=firewalld state=started enabled=yes
+
+#     - name: insert firewalld rule for httpd
+#       firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
+
+#     - name: Set index.php as the default page
+#       tags: "Set index.php as the default page"
+#       replace:
+#         path: /etc/httpd/conf/httpd.conf
+#         regexp: 'DirectoryIndex index.html'
+#         replace: 'DirectoryIndex index.php'
+
+#     - name: http service state
+#       service: name=httpd state=started enabled=yes
+
+# # Terminal 1
+
+# # settings_input_hdmi Web App
+# # menu
+# # open_in_new
+# # fullscreenwb_sunny
+# # settings_backup_restore
+# # stop

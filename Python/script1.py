@@ -66,3 +66,6 @@
 # https://www.coursera.org/learn/python-scripting-intro/supplement/yQIRT/string-data-type-reading
 
 
+##Day2
+
+a = [ 1 2 ]

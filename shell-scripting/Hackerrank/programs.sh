@@ -55,8 +55,16 @@ echo $num | bc -l | xargs printf "%.3f"
 
 
 
+##Display the average of the N integers, rounded off to three decimal places.
+read n
+arr=($(cat)) 
+arr=${arr[*]}
+printf "%.3f" $(echo $((${arr// /+}))/$n | bc -l)
 
-
-
-
+sum=0
+read n
+while read -r line || [[ -n "$line" ]]; do
+    sum=$(($sum + $line))
+done
+printf "%.3f" $(echo "scale=10; $sum/$n" | bc -l)
 
