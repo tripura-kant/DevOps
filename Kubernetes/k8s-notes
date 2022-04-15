@@ -1,4 +1,4 @@
-# What is the architecture of kubernetes?
+<!-- # What is the architecture of kubernetes?
 
 Kubernetes is an open source orchestration tool developed by Google for managing microservices or containerized applications across a distributed cluster of nodes. Kubernetes provides highly resilient infrastructure with zero downtime deployment capabilities, automatic rollback, scaling, and self-healing of containers (which consists of auto-placement, auto-restart, auto-replication , and scaling of containers on the basis of CPU usage).
 
@@ -151,4 +151,4 @@ DESCRIPTION:
      Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase.metadata <Object>
      Standard object metadata.spec <Object>
      Specification of the desired behavior of the Deployment.status <Object>
-     Most recently observed status of the Deployment.
+     Most recently observed status of the Deployment. -->

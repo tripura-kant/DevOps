@@ -1,390 +1,390 @@
-#Cluster Architecture
+@REM #Cluster Architecture
 
-Master Nodes
-Manages ,Plans schedule monitor Nodes
+@REM Master Nodes
+@REM Manages ,Plans schedule monitor Nodes
 
-Control plane contoller
+@REM Control plane contoller
 
-Etcd
-#store data
+@REM Etcd
+@REM #store data
 
-K8s Scheduler
-#schedules pods
+@REM K8s Scheduler
+@REM #schedules pods
 
 
-#Kube Api server
+@REM #Kube Api server
 
 
-Docker Engine
+@REM Docker Engine
 
-Kubelet is the main .its an agent on all nodes listen to kube api server for any instructions 
+@REM Kubelet is the main .its an agent on all nodes listen to kube api server for any instructions 
 
-Worker Nodes
-Host Applications as Containers
+@REM Worker Nodes
+@REM Host Applications as Containers
 
-#Kube Proxy
-For network service
-Ensures rules are in place
+@REM #Kube Proxy
+@REM For network service
+@REM Ensures rules are in place
 
 
-##############################################################################################
-##############################################################################################
+@REM ##############################################################################################
+@REM ##############################################################################################
 
-# Labels and selector 
+@REM # Labels and selector 
 
-For identification purpose
+@REM For identification purpose
 
-pod-definetion.yaml
+@REM pod-definetion.yaml
 
-kubectl get pods --selector app=App1
+@REM kubectl get pods --selector app=App1
 
-Implemented Shared Library to share and reuse code across 35+ CI pipeline configurations.
-Hand on experience to manage the entire build and release activity across multiple environments and infrastructure.
+@REM Implemented Shared Library to share and reuse code across 35+ CI pipeline configurations.
+@REM Hand on experience to manage the entire build and release activity across multiple environments and infrastructure.
 
 
-Enveloped in mission-critical production deployment with applying best practices of SRE principles.
-Troubleshoot the application logs to get the issue on the application side.
+@REM Enveloped in mission-critical production deployment with applying best practices of SRE principles.
+@REM Troubleshoot the application logs to get the issue on the application side.
 
 
-Taint and toleration
+@REM Taint and toleration
 
-Kubectl taint nodes node-name key=value: taint-effect
-No schedule prefernoschedule Noexecute
-Kubectl taint nodes node1 app=blue:Noschedule
+@REM Kubectl taint nodes node-name key=value: taint-effect
+@REM No schedule prefernoschedule Noexecute
+@REM Kubectl taint nodes node1 app=blue:Noschedule
 
-kubectl describe node kubemaster |grep Taint
+@REM kubectl describe node kubemaster |grep Taint
 
-kubectl describe node node01 |grep Taint
+@REM kubectl describe node node01 |grep Taint
 
-kubectl taint nodes node01 spray=mortein:NoSchedule
+@REM kubectl taint nodes node01 spray=mortein:NoSchedule
 
-3node selector to Define a particular node to serve the   
+@REM 3node selector to Define a particular node to serve the   
 
-kubectl label nodes node01 color=blue
+@REM kubectl label nodes node01 color=blue
 
 
-kubectl create deployment blue --image=nginx --replicas=3
+@REM kubectl create deployment blue --image=nginx --replicas=3
 
-## Node affinity : Node affinity is a set of rules used by the scheduler to determine where a pod can be placed.
+@REM ## Node affinity : Node affinity is a set of rules used by the scheduler to determine where a pod can be placed.
 
-##The rules are defined using custom labels on nodes and label selectors specified in pods.
-## Node affinity allows a pod to specify an affinity (or anti-affinity) towards a group of nodes it can be placed on.
+@REM ##The rules are defined using custom labels on nodes and label selectors specified in pods.
+@REM ## Node affinity allows a pod to specify an affinity (or anti-affinity) towards a group of nodes it can be placed on.
 
-Scale
+@REM Scale
 
-kubectl create -f replicaset-defenition.yml
+@REM kubectl create -f replicaset-defenition.yml
 
-kubectl scale --relicas=6 -f replicaset-definition.yml
+@REM kubectl scale --relicas=6 -f replicaset-definition.yml
 
-kubectl scale --replicas=6 replicaset myapp-replicaset
+@REM kubectl scale --replicas=6 replicaset myapp-replicaset
 
-kubectl get replicaset
+@REM kubectl get replicaset
 
-kubectl delete relicaset myapp-replicaset
+@REM kubectl delete relicaset myapp-replicaset
 
-kubectl replace -f replicaset-defenition.yml
+@REM kubectl replace -f replicaset-defenition.yml
 
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
-  name: Replicaset-1
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      tier: frontend
-  template:
-    metadata:
-      labels:
-        tier: frontend
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
+@REM apiVersion: apps/v1
+@REM kind: ReplicaSet
+@REM metadata:
+@REM   name: Replicaset-1
+@REM spec:
+@REM   replicas: 2
+@REM   selector:
+@REM     matchLabels:
+@REM       tier: frontend
+@REM   template:
+@REM     metadata:
+@REM       labels:
+@REM         tier: frontend
+@REM     spec:
+@REM       containers:
+@REM       - name: nginx
+@REM         image: nginx
 
 
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
-  name: Replicaset-1
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      tier: frontend
-  template:
-    metadata:
-      labels:
-        tier: frontend
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
+@REM apiVersion: apps/v1
+@REM kind: ReplicaSet
+@REM metadata:
+@REM   name: Replicaset-1
+@REM spec:
+@REM   replicas: 2
+@REM   selector:
+@REM     matchLabels:
+@REM       tier: frontend
+@REM   template:
+@REM     metadata:
+@REM       labels:
+@REM         tier: frontend
+@REM     spec:
+@REM       containers:
+@REM       - name: nginx
+@REM         image: nginx
 
 
 
-kubectl edit replicaset new-replica-set
+@REM kubectl edit replicaset new-replica-set
 
-kubectl scale rs new-replica-set --replicas=2
+@REM kubectl scale rs new-replica-set --replicas=2
 
-Deployemnts kubernetes deployment
+@REM Deployemnts kubernetes deployment
 
-upgrade the underlying instance
-rolling update
-undo chnages 
-resume chnages as required.
+@REM upgrade the underlying instance
+@REM rolling update
+@REM undo chnages 
+@REM resume chnages as required.
 
-Create an NGINX Pod
+@REM Create an NGINX Pod
 
-kubectl run nginx --image=nginx
+@REM kubectl run nginx --image=nginx
 
-Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
+@REM Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
 
-kubectl run nginx --image=nginx --dry-run=client -o yaml
+@REM kubectl run nginx --image=nginx --dry-run=client -o yaml
 
-Create a deployment
+@REM Create a deployment
 
-kubectl create deployment --image=nginx nginx
+@REM kubectl create deployment --image=nginx nginx
 
-Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
+@REM Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
 
-kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+@REM kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 
-Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) with 4 Replicas (–replicas=4)
+@REM Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) with 4 Replicas (–replicas=4)
 
-kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
+@REM kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
 
-Save it to a file, make necessary changes to the file (for example, adding more replicas) and then create the deployment.
+@REM Save it to a file, make necessary changes to the file (for example, adding more replicas) and then create the deployment.
 
-kubectl create -f nginx-deployment.yaml
+@REM kubectl create -f nginx-deployment.yaml
 
-OR
+@REM OR
 
-In k8s version 1.19+, we can specify the –replicas option to create a deployment with 4 replicas.
+@REM In k8s version 1.19+, we can specify the –replicas option to create a deployment with 4 replicas.
 
-kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+@REM kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
 
 
-Namespaces
+@REM Namespaces
 
-inside a house
-to isolate from different 
-multiple container list of resource
+@REM inside a house
+@REM to isolate from different 
+@REM multiple container list of resource
 
 
-KUBECTL GET Pods
+@REM KUBECTL GET Pods
 
-kubectl get pods --namespace=kube-system
-kubectl config set-context $(kubectl config currrent-context) --namespace=dev
+@REM kubectl get pods --namespace=kube-system
+@REM kubectl config set-context $(kubectl config currrent-context) --namespace=dev
 
-kubectl get pods --namespace=research
+@REM kubectl get pods --namespace=research
 
-kubectl get pods --n
+@REM kubectl get pods --n
 
-kubectl run redis --image=redis -n finance
+@REM kubectl run redis --image=redis -n finance
 
-##services
+@REM ##services
 
-connect application within Applications
-Group of pods 
-##External connect
+@REM connect application within Applications
+@REM Group of pods 
+@REM ##External connect
 
- Kubernetes object
+@REM  Kubernetes object
 
- relicaset
- pods
- service
- listen to port on a node and forward request 
-
- nodeport :service which listen port on a node 
- and forward traffic to pods.
+@REM  relicaset
+@REM  pods
+@REM  service
+@REM  listen to port on a node and forward request 
+
+@REM  nodeport :service which listen port on a node 
+@REM  and forward traffic to pods.
 
-Services Typoes
+@REM Services Typoes
 
-Node port
-makes as internal POD accesable on a port on the Node.
+@REM Node port
+@REM makes as internal POD accesable on a port on the Node.
 
-Cluster IP creates a virtual IP inside the cluster to enable communication between
+@REM Cluster IP creates a virtual IP inside the cluster to enable communication between
 
-service-defenition port
-selector
+@REM service-defenition port
+@REM selector
 
-pod-definition file
+@REM pod-definition file
 
-kubectl get services
+@REM kubectl get services
 
-kubectl describe services
+@REM kubectl describe services
 
 
 
 
-Tripura
+@REM Tripura
 
-Back to Course
-Certified Kubernetes Administrator (CKA)
-18% Complete
-49/269 Steps
-Introduction
-4 Topics
-Core Concepts
-37 Topics
-Core Concepts Section Introduction (00:31)
-Cluster Architecture (08:48)
-ETCD for Beginners (03:03)
-ETCD in Kubernetes (03:17)
-ETCD - Commands (Optional)
-Kube API Server (04:51)
-Kube Controller Manager (04:15)
-Kube Scheduler (03:53)
-Kubelet (01:42)
-Kube Proxy (03:41)
-PODs (09:13)
-Practice Test Introduction (05:45)
-Practice Test - PODs
-Solution - Pods (optional) (07:39)
-ReplicaSets (16:09)
-Practice Test - ReplicaSets
-Solution - ReplicaSets (optional) (07:46)
-Join our Slack Channel
-Deployments (04:26)
-Certification Tip!
-Practice Tests - Deployments
-Solution: Deployment(optional) (05:08)
-Namespaces (08:23)
-Practice Test Namespaces
-Solution: Namespaces (optional) (05:03)
-Services (13:50)
-Services Cluster IP (04:02)
-Services - Loadbalancer (03:42)
-Practice Test Services
-Solution: Services (optional) (05:01)
-Imperative vs Declarative (13:06)
-Certification Tips - Imperative Commands with Kubectl
-Practice Test - Imperative Commands
-Solution: Imperative Commands (optional) (07:52)
-Kubectl Apply Command (04:38)
-Download Presentation Deck for this section 1
-Feedback
-Scheduling
-32 Topics
-Logging & Monitoring
-8 Topics
-Application Lifecycle Management
-27 Topics
-Cluster Maintenance
-18 Topics
-Security
-35 Topics
-Storage
-15 Topics
-Networking
-38 Topics
-Design and Install a Kubernetes Cluster
-6 Topics
-Install "Kubernetes the kubeadm way"
-6 Topics
-Troubleshooting
-14 Topics
-Other Topics
-4 Topics
-Lightning Labs
-2 Topics
-Mock Exams
-8 Topics
-CORE CONCEPTS > CERTIFICATION TIPS – IMPERATIVE COMMANDS WITH KUBECTL
-In Progress
-←Previous
-Next→
-Certification Tips – Imperative Commands with Kubectl
-While you would be working mostly the declarative way – using definition files, imperative commands can help in getting one time tasks done quickly, as well as generate a definition template easily. This would help save considerable amount of time during your exams.
+@REM Back to Course
+@REM Certified Kubernetes Administrator (CKA)
+@REM 18% Complete
+@REM 49/269 Steps
+@REM Introduction
+@REM 4 Topics
+@REM Core Concepts
+@REM 37 Topics
+@REM Core Concepts Section Introduction (00:31)
+@REM Cluster Architecture (08:48)
+@REM ETCD for Beginners (03:03)
+@REM ETCD in Kubernetes (03:17)
+@REM ETCD - Commands (Optional)
+@REM Kube API Server (04:51)
+@REM Kube Controller Manager (04:15)
+@REM Kube Scheduler (03:53)
+@REM Kubelet (01:42)
+@REM Kube Proxy (03:41)
+@REM PODs (09:13)
+@REM Practice Test Introduction (05:45)
+@REM Practice Test - PODs
+@REM Solution - Pods (optional) (07:39)
+@REM ReplicaSets (16:09)
+@REM Practice Test - ReplicaSets
+@REM Solution - ReplicaSets (optional) (07:46)
+@REM Join our Slack Channel
+@REM Deployments (04:26)
+@REM Certification Tip!
+@REM Practice Tests - Deployments
+@REM Solution: Deployment(optional) (05:08)
+@REM Namespaces (08:23)
+@REM Practice Test Namespaces
+@REM Solution: Namespaces (optional) (05:03)
+@REM Services (13:50)
+@REM Services Cluster IP (04:02)
+@REM Services - Loadbalancer (03:42)
+@REM Practice Test Services
+@REM Solution: Services (optional) (05:01)
+@REM Imperative vs Declarative (13:06)
+@REM Certification Tips - Imperative Commands with Kubectl
+@REM Practice Test - Imperative Commands
+@REM Solution: Imperative Commands (optional) (07:52)
+@REM Kubectl Apply Command (04:38)
+@REM Download Presentation Deck for this section 1
+@REM Feedback
+@REM Scheduling
+@REM 32 Topics
+@REM Logging & Monitoring
+@REM 8 Topics
+@REM Application Lifecycle Management
+@REM 27 Topics
+@REM Cluster Maintenance
+@REM 18 Topics
+@REM Security
+@REM 35 Topics
+@REM Storage
+@REM 15 Topics
+@REM Networking
+@REM 38 Topics
+@REM Design and Install a Kubernetes Cluster
+@REM 6 Topics
+@REM Install "Kubernetes the kubeadm way"
+@REM 6 Topics
+@REM Troubleshooting
+@REM 14 Topics
+@REM Other Topics
+@REM 4 Topics
+@REM Lightning Labs
+@REM 2 Topics
+@REM Mock Exams
+@REM 8 Topics
+@REM CORE CONCEPTS > CERTIFICATION TIPS – IMPERATIVE COMMANDS WITH KUBECTL
+@REM In Progress
+@REM ←Previous
+@REM Next→
+@REM Certification Tips – Imperative Commands with Kubectl
+@REM While you would be working mostly the declarative way – using definition files, imperative commands can help in getting one time tasks done quickly, as well as generate a definition template easily. This would help save considerable amount of time during your exams.
 
-Before we begin, familiarize with the two options that can come in handy while working with the below commands:
+@REM Before we begin, familiarize with the two options that can come in handy while working with the below commands:
 
---dry-run: By default as soon as the command is run, the resource will be created. If you simply want to test your command , use the --dry-run=client option. This will not create the resource, instead, tell you whether the resource can be created and if your command is right.
+@REM --dry-run: By default as soon as the command is run, the resource will be created. If you simply want to test your command , use the --dry-run=client option. This will not create the resource, instead, tell you whether the resource can be created and if your command is right.
 
--o yaml: This will output the resource definition in YAML format on screen.
+@REM -o yaml: This will output the resource definition in YAML format on screen.
 
  
 
-Use the above two in combination to generate a resource definition file quickly, that you can then modify and create resources as required, instead of creating the files from scratch.
+@REM Use the above two in combination to generate a resource definition file quickly, that you can then modify and create resources as required, instead of creating the files from scratch.
 
  
 
-POD
-Create an NGINX Pod
+@REM POD
+@REM Create an NGINX Pod
 
-kubectl run nginx --image=nginx
-
- 
-
-Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
-
-kubectl run nginx --image=nginx --dry-run=client -o yaml
+@REM kubectl run nginx --image=nginx
 
  
 
-Deployment
-Create a deployment
+@REM Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
 
-kubectl create deployment --image=nginx nginx
-
- 
-
-Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
-
-kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+@REM kubectl run nginx --image=nginx --dry-run=client -o yaml
 
  
 
-Generate Deployment with 4 Replicas
+@REM Deployment
+@REM Create a deployment
 
-kubectl create deployment nginx --image=nginx --replicas=4
-
- 
-
-You can also scale a deployment using the kubectl scale command.
-
-kubectl scale deployment nginx --replicas=4 
-
-Another way to do this is to save the YAML definition to a file and modify
-
-kubectl create deployment nginx --image=nginx --dry-run=client -o yaml > nginx-deployment.yaml
+@REM kubectl create deployment --image=nginx nginx
 
  
 
-You can then update the YAML file with the replicas or any other field before creating the deployment.
+@REM Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
+
+@REM kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 
  
 
-Service
-Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
+@REM Generate Deployment with 4 Replicas
 
-kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
-
-(This will automatically use the pod’s labels as selectors)
-
-Or
-
-kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
+@REM kubectl create deployment nginx --image=nginx --replicas=4
 
  
 
-Create a Service named nginx of type NodePort to expose pod nginx’s port 80 on port 30080 on the nodes:
+@REM You can also scale a deployment using the kubectl scale command.
 
-kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml
+@REM kubectl scale deployment nginx --replicas=4 
 
-(This will automatically use the pod’s labels as selectors, but you cannot specify the node port. You have to generate a definition file and then add the node port in manually before creating the service with the pod.)
+@REM Another way to do this is to save the YAML definition to a file and modify
 
-Or
+@REM kubectl create deployment nginx --image=nginx --dry-run=client -o yaml > nginx-deployment.yaml
 
-kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+ 
 
-(This will not use the pods labels as selectors)
+@REM You can then update the YAML file with the replicas or any other field before creating the deployment.
 
-Both the above commands have their own challenges. While one of it cannot accept a selector the other cannot accept a node port. I would recommend going with the `kubectl expose` command. If you need to specify a node port, generate a definition file using the same command and manually input the nodeport before creating the service.
+ 
 
-Reference:
-https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+@REM Service
+@REM Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
 
-https://kubernetes.io/docs/reference/kubectl/conventions/
+@REM kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+
+@REM (This will automatically use the pod’s labels as selectors)
+
+@REM Or
+
+@REM kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
+
+ 
+
+@REM Create a Service named nginx of type NodePort to expose pod nginx’s port 80 on port 30080 on the nodes:
+
+@REM kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml
+
+@REM (This will automatically use the pod’s labels as selectors, but you cannot specify the node port. You have to generate a definition file and then add the node port in manually before creating the service with the pod.)
+
+@REM Or
+
+@REM kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+
+@REM (This will not use the pods labels as selectors)
+
+@REM Both the above commands have their own challenges. While one of it cannot accept a selector the other cannot accept a node port. I would recommend going with the `kubectl expose` command. If you need to specify a node port, generate a definition file using the same command and manually input the nodeport before creating the service.
+
+@REM Reference:
+@REM https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+
+@REM https://kubernetes.io/docs/reference/kubectl/conventions/
 
