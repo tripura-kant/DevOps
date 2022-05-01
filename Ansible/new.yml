@@ -1,0 +1,25 @@
+
+
+file.txt
+abc
+delhi
+delhi
+up
+delhi
+punjab
+punjab
+
+cat file.txt | grep "delhi" 
+
+for i in 'cat file.txt';
+    do
+    echo $i >> $file1.txt
+    done 
+
+file1=cat file.txt |grep ""
+
+file=[ "abc", "bcd"]
+
+for i echo@
+
+
